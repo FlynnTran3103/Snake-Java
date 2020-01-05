@@ -33,8 +33,22 @@ public class GameLoop implements Runnable{
             if(!grid.getSnake()){
                 pause();
                 Painter.paintResetMessage(context);
+                break;
+            }
+            time = System.currentTimeMillis() - time;
+            //Adjust the timing correctly
+            if(time<interval){
+                try{
+                    Thread.sleep((long)(interval-time));
+                }catch (InterruptedException ignore){}
             }
         }
+    }
+    public void stop(){
+        running = false;
+    }
+    public boolean isKeyIsPressed(){
+        return keyIsPressed;
     }
 
     private void pause() {
